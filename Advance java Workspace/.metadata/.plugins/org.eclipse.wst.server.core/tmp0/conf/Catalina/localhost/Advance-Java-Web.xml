@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Context docBase="C:\Rays Software\Workspace\Advance java Workspace\Advance-Java-Web\WebContent" path="/Advance-Java-Web" reloadable="true" source="org.eclipse.jst.jee.server:Advance-Java-Web"><Resources><PreResources base="C:\Rays Software\Workspace\Advance java Workspace\Advance-Java-Web\build\classes" classLoaderOnly="false" className="org.apache.catalina.webresources.DirResourceSet" internalPath="/" webAppMount="/WEB-INF/classes"/></Resources></Context>

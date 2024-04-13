@@ -1,0 +1,52 @@
+<%@page import="in.co.rays.bean.UserBean"%>
+<%@page import="java.util.Iterator"%>
+<%@page import="javax.security.auth.message.callback.PrivateKeyCallback.Request"%>
+<%@page import="java.util.List"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+	pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+	<%
+	    int pageNo = (int) request.getAttribute("pageNo");
+	int index = ((pageNo-1)*5)+1;
+		List list = (List)request.getAttribute("list");
+	Iterator it = list.iterator();
+	%>
+
+	<%@include file="Header.jsp"%>
+	<form action="UserListCtl" method="post">
+		<table>
+			<tr>
+				<th>First Name</th>
+				<th>Last Name</th>
+				<th>Login Id</th>
+				<th>Password</th>
+				<th>Dob</th>
+				<th>Address</th>
+			</tr>
+
+			<%
+				UserBean bean = new UserBean();
+			%>
+			
+			<tr>
+			<td><%=index++ %></td>
+			<td><%=bean.getId() %></td>
+			<td><%=bean.getFirstName() %></td>
+			<td><%=bean.getLastName() %></td>
+			<td><%=bean.getLoginId() %></td>
+			<td><%=bean.getPassword() %></td>
+			<td><%=bean.getDob() %></td>
+			<td><%=bean.getAddress() %></td>
+			
+			</tr>
+		</table>
+	</form>
+
+</body>
+</html>

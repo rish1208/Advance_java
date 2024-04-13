@@ -1,0 +1,59 @@
+package in.co.rays.model;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+
+import in.co.rays.bean.TvBean;
+
+
+
+public class TvModel {
+	public static Integer nextPk() throws Exception{
+		int pk = 0;
+
+		Class.forName("com.mysql.cj.jdbc.Driver");
+		Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/pratise", "root", "root");
+		PreparedStatement pstmt = conn.prepareStatement("select max(id) from show");
+		ResultSet rs = pstmt.executeQuery();
+
+		while (rs.next()) {
+			pk = rs.getInt(1);
+		}
+		return pk + 1;
+
+}
+	public static void add(TvBean bean) throws Exception{
+//		int pk = nextPk();
+		Class.forName("com.mysql.cj.jdbc.Driver");
+		Connection conn= DriverManager.getConnection("jdbc:mysql://localhost:3306/pratise","root","root");
+		PreparedStatement pstmt = conn.prepareStatement("insert into show values(?,?,?,?,?,)");
+		
+		pstmt.setInt(1, bean.getId());
+		pstmt.setString(2, bean.getChannelName());
+		pstmt.setString(3, bean.getShowName());
+		pstmt.setDate(4, new java.sql.Date(bean.getShowDate().getTime()));
+		pstmt.setString(5, bean.getWatch());
+		
+		int i = pstmt.executeUpdate();
+		System.out.println("data added successfullu"+ i);
+	}	
+
+
+public static void update(TvBean bean) throws Exception{
+
+	Class.forName("com.mysql.cj.jdbc.Driver");
+	Connection conn= DriverManager.getConnection("jdbc:mysql://localhost:3306/pratise","root","root");
+	PreparedStatement pstmt = conn.prepareStatement("insert into show values(?,?,?,?,?,)");
+	
+	pstmt.setString(1, bean.getChannelName());
+	pstmt.setString(2, bean.getShowName());
+	pstmt.setDate(3, new java.sql.Date(bean.getShowDate().getTime()));
+	pstmt.setString(4, bean.getWatch());
+	pstmt.setInt(5, bean.getId());
+	
+	int i = pstmt.executeUpdate();
+	System.out.println("data updated successfullu"+ i);
+}
+}	

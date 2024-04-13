@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Copy element &apos;system.properties&apos; to &apos;Advance-Java-Web/src/in.co.ray.bundle&apos;&#x0D;&#x0A;- Original project: &apos;AdvanceJava&apos;&#x0D;&#x0A;- Destination element: &apos;Advance-Java-Web/src/in.co.ray.bundle&apos;&#x0D;&#x0A;- Original element: &apos;system.properties&apos;" description="Copy file" destination="=Advance-Java-Web/src&lt;in.co.ray.bundle" element1="src/in/co/rays/bundle/system.properties" files="1" flags="589830" folders="0" id="org.eclipse.jdt.ui.copy" policy="org.eclipse.jdt.ui.copyResources" stamp="1705924332889" units="0" version="1.0"/>
+</session>

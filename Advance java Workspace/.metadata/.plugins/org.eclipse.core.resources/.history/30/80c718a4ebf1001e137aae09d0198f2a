@@ -1,0 +1,46 @@
+package in.co.rays.model;
+
+
+
+import java.text.SimpleDateFormat;
+
+import in.co.rays.bean.VehicleBean;
+
+public class TestVehicle {
+	public static void main(String[] args)throws Exception {
+//		testadd();
+		testupdate();
+		
+	}
+
+	private static void testadd()throws Exception {
+		SimpleDateFormat sdf =  new SimpleDateFormat("yyyy-MM-dd");
+		VehicleBean bean = new VehicleBean();
+		bean.setId(2);
+		bean.setName("rish");
+		bean.setPurchaseBy("riddhima");
+		bean.setPurchaseDate(sdf.parse("2024-01-01"));
+		bean.setCompany("pqr");
+		bean.setManufacturedBy("pqr");
+		
+		VehicleModel model = new VehicleModel();
+		model.add(bean);
+		System.out.println("add");
+		
+		
+	}
+	private static void testupdate()throws Exception {
+		SimpleDateFormat sdf =  new SimpleDateFormat("yyyy-MM-dd");
+		VehicleBean bean = new VehicleBean();
+		
+		bean.setName("rishendra");
+		bean.setPurchaseBy("riddhima");
+		bean.setPurchaseDate(sdf.parse("2024-01-01"));
+		bean.setCompany("pqr");
+		bean.setManufacturedBy("xyz");
+		bean.setId(2);
+		VehicleModel model = new VehicleModel();
+		model.update(bean);
+		System.out.println("update");
+}
+}

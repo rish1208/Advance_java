@@ -1,0 +1,134 @@
+package in.co.rays.model;
+
+import java.sql.Connection;
+import java.sql.Date;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
+
+import in.co.rays.bean.VehicleBean;
+
+
+public class VehicleModel {
+	public  Integer nextPk() throws Exception{
+		Class.forName("com.mysql.cj.jdbc.Driver");
+		Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/vehicle", "root", "root");
+		PreparedStatement pstmt = conn.prepareStatement("select max(id) from vehicle");
+		int pk = 0;
+		ResultSet rs = pstmt.executeQuery();
+		while(rs.next()) {
+			pk=rs.getInt(1);
+		}
+		return pk+1;	
+	}
+	
+	public  void add(VehicleBean bean) throws Exception{
+		
+		Class.forName("com.mysql.cj.jdbc.Driver");
+		Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/vehicle", "root", "root");
+		PreparedStatement pstmt = conn.prepareStatement("insert into vehicle values(?,?,?,?,?,?");
+		int pk = nextPk();
+		pstmt.setInt(1, pk);
+		pstmt.setString(2, bean.getName());
+		pstmt.setString(3, bean.getPurchaseBy());
+		pstmt.setDate(4, new java.sql.Date(bean.getPurchaseDate().getTime()));
+		pstmt.setString(5, bean.getCompany());
+		pstmt.setString(6, bean.getManufacturedBy());
+		
+		int i = pstmt.executeUpdate();
+		System.out.println("data add"+ i);
+		
+	}
+public  void update(VehicleBean bean) throws Exception{
+		
+		Class.forName("com.sql.cj.jdbc.Driver");
+		Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/vehicle", "root", "root");
+		PreparedStatement pstmt = conn.prepareStatement("update vehicle set name=?, purchase_by=?, purchase_date=?, company=?, manufactured_by=? where id=? ");
+		int pk = nextPk();
+		
+		pstmt.setString(2, bean.getName());
+		pstmt.setString(1, bean.getPurchaseBy());
+		pstmt.setDate(3, new java.sql.Date(bean.getPurchaseDate().getTime()));
+		pstmt.setString(4, bean.getCompany());
+		pstmt.setString(5, bean.getManufacturedBy());
+		pstmt.setInt(6, bean.getId());
+		int i = pstmt.executeUpdate();
+		System.out.println("data update"+ i);
+}
+public  void delete(int id) throws Exception{
+	
+	Class.forName("com.sql.cj.jdbc.Driver");
+	Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/vehicle", "root", "root");
+	PreparedStatement pstmt = conn.prepareStatement("delete from vehicle where id=?");
+	int pk = nextPk();
+	pstmt.setInt(1, id);
+	int i = pstmt.executeUpdate();
+	System.out.println("data delete"+ i);	
+}
+  public VehicleBean findByPk(int id)throws Exception{
+	  Class.forName("com.sql.cj.jdbc.Driver");
+		Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/vehicle", "root", "root");
+		PreparedStatement pstmt = conn.prepareStatement("select * from vehicle where id=?");
+		pstmt.setInt(1, id);
+		ResultSet rs = pstmt.executeQuery();
+		VehicleBean  bean = new VehicleBean();
+		while(rs.next()) {
+			bean = new VehicleBean();
+			bean.setId(rs.getInt(1));
+			bean.setName(rs.getString(2));
+			bean.setPurchaseBy(rs.getString(3));
+			bean.setPurchaseDate(rs.getDate(4));
+			bean.setCompany(rs.getString(5));
+			bean.setManufacturedBy(rs.getString(6));	
+		}  
+	return bean;
+	  
+  }
+  public VehicleBean Authentication(String loginId, String password)throws Exception{
+	  Class.forName("com.sql.cj.jdbc.Driver");
+		Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/vehicle", "root", "root");
+		PreparedStatement pstmt = conn.prepareStatement("select * from vehicle where login_id=? and password=?");
+		pstmt.setString(1, loginId);
+		pstmt.setString(2, password);
+		ResultSet rs = pstmt.executeQuery();
+		VehicleBean  bean = new VehicleBean();
+		while(rs.next()) {
+			bean = new VehicleBean();
+			bean.setId(rs.getInt(1));
+			bean.setName(rs.getString(2));
+			bean.setPurchaseBy(rs.getString(3));
+			bean.setPurchaseDate(rs.getDate(4));
+			bean.setCompany(rs.getString(5));
+			bean.setManufacturedBy(rs.getString(6));	
+		}  
+	return bean;
+
+  }
+  public List search(VehicleBean bean) throws Exception{
+	  Class.forName("com.sql.cj.jdbc.Driver");
+		Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/vehicle", "root", "root");
+		StringBuffer sql= new StringBuffer ("select * from vehicle where 1=1");
+		
+		if(bean !=null) {
+			if(bean.getPurchaseDate() != null && bean.getPurchaseDate().getTime()>0) {
+				sql.append(" and dob like '" + new java.sql.Date(bean.getPurchaseDate().getTime())+ "%'");
+			}
+		}
+			PreparedStatement pstmt = conn.prepareStatement(sql.toString());
+	      ResultSet rs = pstmt.executeQuery();
+	      
+	      List list =new  ArrayList();
+	      while(rs.next()) {
+	    	  bean = new VehicleBean();
+	    	  bean.setId(rs.getInt(1));
+	    	  bean.setName(rs.getString(2));
+	    	  bean.setPurchaseBy(rs.getString(3));
+	    	  bean.setPurchaseDate(rs.getDate(4));
+	    	  bean.setCompany(rs.getString(5));
+	    	  bean.setManufacturedBy(rs.getString(6));
+	      }
+	  
+return  list;
+}}

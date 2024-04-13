@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Context docBase="C:\Rays Software\Workspace\Advance java Workspace\Use-case\WebContent" path="/Use-case" reloadable="true" source="org.eclipse.jst.jee.server:Use-case"><Resources><PreResources base="C:\Rays Software\Workspace\Advance java Workspace\Use-case\build\classes" classLoaderOnly="false" className="org.apache.catalina.webresources.DirResourceSet" internalPath="/" webAppMount="/WEB-INF/classes"/></Resources></Context>

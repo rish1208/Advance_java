@@ -1,0 +1,128 @@
+package in.co.rays.model;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
+
+import in.co.rays.bean.TvBean;
+
+
+
+public class TvModel {
+	public  Integer nextPk() throws Exception{
+		int pk = 0;
+
+		Class.forName("com.mysql.cj.jdbc.Driver");
+		Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/pratise", "root", "root");
+		PreparedStatement pstmt = conn.prepareStatement("select max(id) from show");
+		ResultSet rs = pstmt.executeQuery();
+
+		while (rs.next()) {
+			pk = rs.getInt(1);
+		}
+		return pk + 1;
+
+}
+	public  void add(TvBean bean) throws Exception{
+		int pk = nextPk();
+		Class.forName("com.mysql.cj.jdbc.Driver");
+		Connection conn= DriverManager.getConnection("jdbc:mysql://localhost:3306/pratise","root","root");
+		PreparedStatement pstmt = conn.prepareStatement("insert into show values(?,?,?,?,?)");
+		
+		pstmt.setInt(1, pk);
+		pstmt.setString(2, bean.getChannelName());
+		pstmt.setString(3, bean.getShowName());
+		pstmt.setDate(4, new java.sql.Date(bean.getShowDate().getTime()));
+		pstmt.setString(5, bean.getWatch());
+		
+		int i = pstmt.executeUpdate();
+		System.out.println("data added successfullu"+ i);
+	}	
+
+
+public static void update(TvBean bean) throws Exception{
+
+	Class.forName("com.mysql.cj.jdbc.Driver");
+	Connection conn= DriverManager.getConnection("jdbc:mysql://localhost:3306/pratise","root","root");
+	PreparedStatement pstmt = conn.prepareStatement("update show set channel_name =?, show_name=?,show_date=?, watch=? where id=?");
+	
+	pstmt.setString(1, bean.getChannelName());
+	pstmt.setString(2, bean.getShowName());
+	pstmt.setDate(3, new java.sql.Date(bean.getShowDate().getTime()));
+	pstmt.setString(4, bean.getWatch());
+	pstmt.setInt(5, bean.getId());
+	
+	int i = pstmt.executeUpdate();
+	System.out.println("data updated successfullu"+ i);
+}
+public static void delete(int id) throws Exception{
+
+	Class.forName("com.mysql.cj.jdbc.Driver");
+	Connection conn= DriverManager.getConnection("jdbc:mysql://localhost:3306/pratise","root","root");
+	PreparedStatement pstmt = conn.prepareStatement("delete from show where id=?");
+	pstmt.setInt(1, id);
+	int i = pstmt.executeUpdate();
+	System.out.println("data delete successfullu"+ i);
+	
+}
+public  TvBean findByPk(int id) throws Exception{
+	
+	Class.forName("com.mysql.cj.jdbc.Driver");
+	Connection conn= DriverManager.getConnection("jdbc:mysql://localhost:3306/pratise","root","root");
+	PreparedStatement pstmt = conn.prepareStatement("select * from show where id =?");
+	pstmt.setInt(1, id);
+	ResultSet rs = pstmt.executeQuery();
+	TvBean bean = new TvBean();
+	while(rs.next()) {
+		bean = new TvBean();
+		bean.setId(rs.getInt(1));
+	    bean.setChannelName(rs.getString(2));
+	    bean.setShowName(rs.getString(3));
+	    bean.setShowDate(rs.getDate(4));
+	    bean.setWatch(rs.getString(5));
+		
+	}
+	return bean;
+}
+public List search(TvBean bean, int pageNo, int pageSize) throws Exception {
+
+		int pk = nextPk();
+
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/pratise", "root", "root");
+			StringBuffer sql = new StringBuffer("select * from show where 1=1");
+			if (bean != null) {
+				if (bean.getChannelName() != null && bean.getChannelName().length() > 0) {
+					sql.append(" and first_name like '" + bean.getChannelName() + "%'");
+				}
+				if (bean.getShowDate() != null && bean.getShowDate().getTime() > 0) {
+					sql.append(" and dob like '" + new java.sql.Date(bean.getShowDate().getTime()) + "%'");
+				}
+			}
+			if (pageSize > 0) {
+
+				pageNo = (pageNo - 1) * pageSize;
+
+				sql.append(" limit " + pageNo + ", " + pageSize);
+			}
+
+			System.out.println("sql => " + sql);
+			PreparedStatement ps = conn.prepareStatement(sql.toString());
+			ResultSet rs = ps.executeQuery();
+
+			List list = new ArrayList();
+			while (rs.next()) {
+				bean = new TvBean();
+				bean.setId(rs.getInt(1));
+				bean.setChannelName(rs.getString(2));
+				bean.setShowDate(rs.getDate(4));
+				bean.setWatch(rs.getString(5));
+				list.add(bean);
+			
+			}
+			return list;
+}
+}	

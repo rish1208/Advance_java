@@ -1,0 +1,61 @@
+package in.co.rays.model;
+
+import java.sql.Connection;
+import java.sql.Date;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+
+import in.co.rays.bean.VehicleBean;
+
+
+
+public class VehicleModel {
+	public static Integer nextPk() throws Exception{
+		
+		Class.forName("com.mysql.cj.jdbc.Driver");
+		Connection conn = DriverManager.getConnection("mysql:jdbc://localhost:3306/vehicle","root", "root");
+		int pk=0;
+		PreparedStatement pstmt = conn.prepareStatement("select max(id) from vehicle");
+		ResultSet rs = pstmt.executeQuery();
+		while(rs.next()) {
+			pk= rs.getInt(1);
+		}
+		return pk + 1;
+		
+	}
+	
+	public static void add(VehicleBean bean) throws Exception{
+		Class.forName("com.mysql.cj.jdbc.Driver");
+		Connection conn = DriverManager.getConnection("mysql:jdbc://localhost:3306/vehicle","root", "root");
+		PreparedStatement pstmt = conn.prepareStatement("insert into vehicle values(?,?,?,?,?,?)");
+		
+		int pk = nextPk();
+		pstmt.setInt(1, pk);
+		pstmt.setString(2, bean.getName());
+		pstmt.setString(3, bean.getPurchaseBy());
+		pstmt.setDate(4, new java.sql.Date(bean.getPurchaseDate().getTime()));
+		pstmt.setString(5, bean.getCompany());
+		pstmt.setString(6, bean.getManufacturedB
+		int i = pstmt.executeUpdate();
+		System.out.println("data inserte"+ i);
+		
+	}
+	public static void update(VehicleBean bean) throws Exception{
+		Class.forName("com.mysql.cj.jdbc.Driver");
+		Connection conn = DriverManager.getConnection("mysql:jdbc://localhost:3306/vehicle","root", "root");
+		PreparedStatement pstmt = conn.prepareStatement("update vehicle set name=?,purchase_by=?,purchase_date=?,company=? manufac");
+		
+		int pk = nextPk();
+		pstmt.setInt(1, pk);
+		pstmt.setString(2, bean.getName());
+		pstmt.setString(3, bean.getPurchaseBy());
+		pstmt.setDate(4, new java.sql.Date(bean.getPurchaseDate().getTime()));
+		pstmt.setString(5, bean.getCompany());
+		pstmt.setString(6, bean.getManufacturedBy());
+		int i = pstmt.executeUpdate();
+		System.out.println("data inserte"+ i);
+		
+	}
+
+}

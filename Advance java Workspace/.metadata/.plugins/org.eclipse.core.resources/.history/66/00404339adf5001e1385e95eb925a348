@@ -1,0 +1,69 @@
+package in.co.rays.ctl;
+
+import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import in.co.rays.bean.TvBean;
+import in.co.rays.model.TvModel;
+
+@WebServlet("/TvCtl")
+public class TvCtl extends HttpServlet {
+@Override
+protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	resp.sendRedirect("TvView.jsp");
+}
+@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	
+	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+	String cname = req.getParameter("channelName");
+		String sname = req.getParameter("showName");
+		String sdate = req.getParameter("showDate");
+		String watch = req.getParameter("watch");
+		String id = req.getParameter("id");
+		String op = req.getParameter("operation");
+		TvModel model = new TvModel();
+		TvBean bean = new TvBean();
+		bean.setChannelName(cname);
+		bean.setShowName(sname);
+		try {
+			bean.setShowDate(sdf.parse(sdate));
+		} catch (ParseException e1) {
+			
+			e1.printStackTrace();
+		}
+		bean.setWatch(watch);
+		
+		if (op.equals("save")) {
+
+			try {
+				model.add(bean);
+				req.setAttribute("msg", "Data Added Successfully...!!!");
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		if (op.equals("update")) {
+
+			bean.setId(Integer.parseInt(id));
+		}
+		
+		try {
+			model.add(bean);
+			System.out.println("data added");
+			RequestDispatcher rd = req.getRequestDispatcher("TvView.jsp");
+			rd.forward(req, resp);
+		} catch (Exception e) {
+			
+			e.printStackTrace();
+		}
+	}
+}

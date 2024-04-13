@@ -1,0 +1,68 @@
+<%@page import="in.co.rays.bean.VehicleBean"%>
+<%@page import="in.co.rays.model.VehicleModel"%>
+<%@page import="java.util.Iterator"%>
+<%@page import="java.util.List"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+	pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+
+	<%
+		List list = (List) request.getAttribute("list");
+		Iterator it = list.iterator();
+	%>
+
+	<%@include file="Header.jsp"%>
+
+	<form action="VehicleListCtl" method="post">
+		<table>
+			<tr>
+				<td><input type="date" name="purchaseDate"></td>
+				<td><input type="submit" name="operation" value="search"></td>
+				<td><input type="submit" name="operation" value="delete"></td>
+			</tr>
+		</table>
+
+		<table border="1">
+
+			<tr>
+			<th>select</th>
+				<th>ID</th>
+				<th>Name</th>
+				<th>Purchase By</th>
+				<th>Purchase Date</th>
+				<th>Company</th>
+				<th>Manufactured By</th>
+				<th>edit</th>
+			</tr>
+
+			<%
+				while (it.hasNext()) {
+					VehicleBean bean = (VehicleBean) it.next();
+			%>
+
+			<tr>
+<td><input type="checkbox" name ="ids" value =<%=bean.getId() %>></td>
+				<td><%=bean.getId()%></td>
+				<td><%=bean.getName()%></td>
+				<td><%=bean.getPurchaseBy()%></td>
+				<td><%=bean.getPurchaseDate()%></td>
+				<td><%=bean.getCompany()%></td>
+				<td><%=bean.getManufacturedBy()%></td>
+	<td><a href ="VehicleCtl?id=<%=bean.getId()%>">edit</a></td>
+				<%
+					}
+				%>
+			</tr>
+
+
+
+		</table>
+	</form>
+</body>
+</html>

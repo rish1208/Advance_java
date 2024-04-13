@@ -1,0 +1,97 @@
+package in.co.rays.ctl;
+
+import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import in.co.rays.bean.DevloperBean;
+import in.co.rays.model.DevloperModel;
+
+@WebServlet("/DevCtl")
+public class DevCtl extends HttpServlet {
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		String id = req.getParameter("id");
+		DevloperModel model = new DevloperModel();
+		if (id != null) {
+			try {
+				DevloperBean bean = model.findByPk(Integer.parseInt(id));
+				req.setAttribute("bean", bean);
+			} catch (Exception e) {
+
+				e.printStackTrace();
+			}
+		}
+
+		RequestDispatcher rd = req.getRequestDispatcher("DeveloperView.jsp");
+		rd.forward(req, resp);
+	
+	}
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		String dname = req.getParameter("devloperName");
+		String pro = req.getParameter("project");
+		String status = req.getParameter("status");
+		String sdate = req.getParameter("submitDate");
+		String id = req.getParameter("id");
+		String op = req.getParameter("operation");
+		DevloperModel model = new DevloperModel();
+		DevloperBean bean = new DevloperBean();
+		bean.setDevloperName(dname);
+		bean.setProject(pro);
+		bean.setStatus(status);
+		try {
+			bean.setSubmitDate(sdf.parse(sdate));
+		} catch (ParseException e1) {
+
+			e1.printStackTrace();
+		}
+		
+
+		if (op.equals("save")) {
+			if (id != null) {
+
+				bean.setId(Integer.parseInt(id));
+				try {
+					model.update(bean);
+				} catch (Exception e) {
+					
+					e.printStackTrace();
+				}
+
+			} else {
+				try {
+					model.add(bean);
+				} catch (Exception e) {
+					
+					e.printStackTrace();
+				}
+			}
+
+			try {
+				model.add(bean);
+				req.setAttribute("msg", "Data Added Successfully...!!!");
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+
+		try {
+			RequestDispatcher rd = req.getRequestDispatcher("DeveloperView.jsp");
+			rd.forward(req, resp);
+		} catch (Exception e) {
+
+			e.printStackTrace();
+		}
+	}
+	
+
+}

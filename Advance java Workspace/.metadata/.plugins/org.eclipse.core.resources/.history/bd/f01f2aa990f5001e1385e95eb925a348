@@ -1,0 +1,29 @@
+package in.co.rays.model;
+
+import java.text.SimpleDateFormat;
+
+import in.co.rays.bean.TvBean;
+
+public class TestTv {
+	public static void main(String[] args) throws Exception{
+		testAdd();
+		
+	}
+
+	private static void testAdd()throws Exception {
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+		TvBean bean = new TvBean();
+		bean.setId(2);
+		bean.setChannelName("pogo");
+		bean.setShowName("chotaBhim");
+		bean.setShowDate(sdf.parse("01/04/2024"));
+		bean.setWatch("10");
+		
+		TvModel model = new TvModel();
+		model.add(bean);
+		System.out.println("data added");
+		
+		
+	}
+
+}

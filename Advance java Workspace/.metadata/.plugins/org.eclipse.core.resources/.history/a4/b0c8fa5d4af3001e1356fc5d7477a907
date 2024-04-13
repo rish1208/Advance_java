@@ -1,0 +1,29 @@
+package in.co.rays.model;
+
+import java.text.SimpleDateFormat;
+
+import in.co.rays.bean.UserBean;
+
+public class Test {
+	public static void main(String[] args) throws Exception{
+		
+		testadd();
+		
+	}
+
+	private static void testadd()throws Exception  {
+		UserBean bean = new UserBean();
+         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+		bean.setId(4);
+		bean.setFirstName("bittu");
+		bean.setLastName("sharma");
+		bean.setLoginId("bittu@gmail.com");
+		bean.setPassword("123");
+		bean.setDob(sdf.parse("01/01/2024"));
+		bean.setAddress("indore");
+		UserModel model = new UserModel();
+		model.add(bean);
+		System.out.println("data added");	
+	}
+
+}

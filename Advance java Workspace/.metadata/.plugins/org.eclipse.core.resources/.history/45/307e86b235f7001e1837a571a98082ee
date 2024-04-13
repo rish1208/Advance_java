@@ -1,0 +1,60 @@
+<%@page import="in.co.rays.bean.DevloperBean"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+<%@include file="DevloperHeader.jsp"%>
+	<form action="DevCtl" method="post">
+		<%
+			DevloperBean bean = (DevloperBean) request.getAttribute("bean");
+		   String msg = (String)request.getAttribute("msg");
+		%>
+		<table>
+			<tr>
+				<td><input type="hidden" name="id"
+					value="<%=(bean != null) ? bean.getId() : ""%>"></td>
+			</tr>
+
+			<tr>
+				<th>DevloperName:</th>
+				<td><input type="text" name="devloperName"
+				 value="<%=(bean != null) ? bean.getDevloperName() : ""%>"></td>
+				</td>
+			</tr>
+
+			<tr>
+				<th>Project:</th>
+				<td><input type="text" name="project"
+				 value="<%=(bean != null) ? bean.getProject() : ""%>"></td>
+				</td>
+			</tr>
+
+<tr>
+				<th>Status:</th>
+				<td><input type="text" name="status"
+				 value="<%=(bean != null) ? bean.getStatus() : ""%>"></td>
+				</td>
+
+			<tr>
+				<th>SubmitDate</th>
+				<td><input type="Date" name="submitDate" 
+				value="<%=(bean != null) ? bean.getSubmitDate() : ""%>"></td>
+				</td>
+			</tr>
+
+			
+
+			<tr>
+				<th></th>
+				<td><input type="submit" name="operation" value="<%=(bean!=null)? "update " : "save"%>"></td>
+			</tr>
+
+		</table>
+	</form>
+</body>
+</html>

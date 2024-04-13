@@ -1,0 +1,65 @@
+<%@page import="in.co.rays.bean.DevloperBean"%>
+<%@page import="java.util.Iterator"%>
+<%@page import="java.util.List"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+
+<%
+		List list = (List) request.getAttribute("list");
+		Iterator it = list.iterator();
+	%>
+	<form action="DevListCtl" method="post">
+		<table>
+			<tr>
+				<td><input type="text" name="devloperName"></td>
+			
+				<td><input type="submit" name="operation" value="search"></td>
+			</tr>
+		
+		</table>
+		<table border="1%">
+			<tr>
+				
+				<th>Id</th>
+				<th>DevloperName</th>
+				<th>Project</th>
+				<th>Status</th>
+				<th>SubmitDate</th>
+				
+			</tr>
+			<%
+				while (it.hasNext()) {
+					DevloperBean bean = (DevloperBean) it.next();
+			%>
+			<tr>
+				<td><input type="checkbox" name="ids" value="<%=bean.getId()%>"></td>
+				<td><%=bean.getId()%></td>
+				<td><%=bean.getDevloperName()%></td>
+				<td><%=bean.getProject()%></td>
+				<td><%=bean.getStatus()%></td>
+				<td><%=bean.getSubmitDate()%></td>
+				<td><a href="DevCtl?id=<%=bean.getId() %>">Edit</a></td>
+					</tr>
+			
+				
+				<%
+					}
+				%>
+		
+			
+		</table>
+
+				<td><input type="submit" name="operation" value="delete"></td>
+		
+
+	</form>
+
+</body>
+</html>

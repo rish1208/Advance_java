@@ -1,0 +1,73 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+<jsp:useBean id="bean" class="in.co.rays.bean.VehicleBean" scope="request"></jsp:useBean>
+	<%
+		String msg = (String) request.getAttribute("msg");
+	%>
+
+
+	<%@include file="VehicleHeader.jsp"%>
+
+	<form action="VehicleCtl" method="post">
+
+		<%
+			if (msg != null) {
+		%>
+		<%=msg%>
+		<%
+			}
+		%>
+
+		<table>
+			<td><input type="hidden" name="id" value="<%=(bean.getId()>0)? bean.getId(): ""%>"></td>
+
+			<tr>
+				<th>Name:</th>
+				<td><input type="text" name="name"
+					value="<%=(bean.getName() != null) ? bean.getName() : ""%>"></td>
+			</tr>
+
+			<tr>
+				<th>Purchase By:</th>
+				<td><input type="text" name="purchaseBy"
+					value="<%=(bean.getPurchaseBy() != null) ? bean.getPurchaseBy() : ""%>"></td>
+			</tr>
+
+			<tr>
+				<th>Purchase Date:</th>
+				<td><input type="date" name="purchaseDate"
+					value="<%=(bean.getPurchaseDate() != null) ? bean.getPurchaseDate() : ""%>"></td>
+			</tr>
+
+			<tr>
+				<th>company:</th>
+				<td><input type="text" name="company"
+					value="<%=(bean.getCompany() != null) ? bean.getCompany() : ""%>"></td>
+			</tr>
+
+			
+		
+			<tr>
+				<th>Manufactured By:</th>
+				<td><input type="text" name="manufacturedBy"
+					value="<%=(bean.getManufacturedBy() != null) ? bean.getManufacturedBy() : ""%>"></td>
+			</tr>
+
+			<tr>
+				<th></th>
+				<td><input type="submit" name="operation"
+					value="<%=(bean.getId() > 0) ? "update" : "save"%>"></td>
+			</tr>
+		</table>
+	</form>
+
+
+</body>
+</html>

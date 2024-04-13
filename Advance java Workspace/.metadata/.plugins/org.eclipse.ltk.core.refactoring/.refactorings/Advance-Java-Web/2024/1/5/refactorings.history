@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename type &apos;in.co.rays.ctl.FontCtl&apos; to &apos;FrontCtl&apos;&#x0D;&#x0A;- Original project: &apos;Advance-Java-Web&apos;&#x0D;&#x0A;- Original element: &apos;in.co.rays.ctl.FontCtl&apos;&#x0D;&#x0A;- Renamed element: &apos;in.co.rays.ctl.FrontCtl&apos;&#x0D;&#x0A;- Update references to refactored element&#x0D;&#x0A;- Update textual occurrences in comments and strings" description="Rename type &apos;FontCtl&apos;" flags="589830" id="org.eclipse.jdt.ui.rename.type" input="/src&lt;in.co.rays.ctl{FontCtl.java[FontCtl" matchStrategy="1" name="FrontCtl" qualified="false" references="true" similarDeclarations="false" stamp="1706725096998" textual="false" version="1.0"/>
+</session>

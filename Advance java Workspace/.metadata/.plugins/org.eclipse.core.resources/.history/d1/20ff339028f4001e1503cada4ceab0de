@@ -1,0 +1,31 @@
+package in.co.rays.model;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+
+import in.co.rays.bean.UserBean;
+
+public class VehicleModel {
+	public  Integer nextPk() throws Exception{
+		Class.forName("com.sql.cj.jdbc.Driver");
+		Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/vehicle", "root", "root");
+		PreparedStatement pstmt = conn.prepareStatement("select max(id) from vehicle");
+		int pk = 0;
+		ResultSet rs = pstmt.executeQuery();
+		while(rs.next()) {
+			pk=rs.getInt(1);
+		}
+		return pk+1;	
+	}
+	
+	public  void add(UserBean bean) throws Exception{
+		int pk = nextPk();
+		Class.forName("com.sql.cj.jdbc.Driver");
+		Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/vehicle", "root", "root");
+		PreparedStatement pstmt = conn.prepareStatement("select max(id) from vehicle");
+		
+	}
+
+}

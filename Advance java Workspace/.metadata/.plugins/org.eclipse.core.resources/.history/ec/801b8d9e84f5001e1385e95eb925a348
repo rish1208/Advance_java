@@ -1,0 +1,12 @@
+package in.co.rays.bean;
+
+import java.util.Date;
+
+public class TvBean {
+	private int id;
+	private String channelName;
+	private String showName;
+	private Date showDate;
+	private String watch;
+
+}

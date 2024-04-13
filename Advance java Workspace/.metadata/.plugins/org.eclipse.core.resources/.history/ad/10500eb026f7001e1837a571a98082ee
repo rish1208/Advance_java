@@ -1,0 +1,96 @@
+package in.co.rays.model;
+
+
+
+import java.text.SimpleDateFormat;
+import java.util.Iterator;
+import java.util.List;
+
+import in.co.rays.bean.DevloperBean;
+
+
+public class TestDevloper {
+	public static void main(String[] args) throws Exception{
+		//testAdd();
+		//testupdate();
+		testdelete();
+		//testfindbypk();
+		//testsearch();
+		
+	}
+	private static void testAdd() throws Exception {
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+DevloperBean bean = new DevloperBean();
+		
+		bean.setId(1);
+		bean.setDevloperName("riya");
+		bean.setProject("project-4");
+		bean.setStatus("login");
+		bean.setSubmitDate(sdf.parse("01/04/2024"));
+		
+		DevloperModel model = new DevloperModel();
+		model.add(bean);
+		System.out.println("Data inserted Successfully..!!");
+		
+		
+	}
+	private static void testsearch() throws Exception {
+		DevloperBean bean = new DevloperBean();
+		bean.setDevloperName("p");
+	DevloperModel model = new DevloperModel();
+List list = model.search(null, 1, 0);
+		Iterator it = list.iterator();
+
+		while (it.hasNext()) {
+			 bean = (DevloperBean) it.next();
+			 
+			 System.out.println(bean.getId());
+			 System.out.println("\t" + bean.getDevloperName());
+			 System.out.println("\t" +bean.getProject());
+			 System.out.println("\t" +bean.getStatus());
+			 System.out.println("\t" +bean.getSubmitDate());
+		}
+		
+		
+	}
+
+	private static void testfindbypk() throws Exception{
+		
+		DevloperModel model = new DevloperModel();
+		DevloperBean bean  = model.findByPk(1);
+		
+		System.out.println(bean.getId());
+		System.out.println(bean.getDevloperName());
+		System.out.println(bean.getProject());
+		System.out.println(bean.getStatus());
+		System.out.println(bean.getSubmitDate());	
+	}
+
+	private static void testdelete()  throws Exception {
+		DevloperBean bean = new DevloperBean();
+		bean.setId(5);
+ 		DevloperModel model = new DevloperModel();
+ 		model.delete(bean.getId());
+		System.out.println("data deleted successfully!");
+		
+		
+	}
+
+	private static void testupdate()throws Exception {
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+		DevloperBean bean = new DevloperBean();
+		
+		bean.setDevloperName("Rishendra");
+		bean.setProject("Project-4");
+		bean.setStatus("Developer");
+		bean.setSubmitDate(sdf.parse("01/04/2024"));
+		bean.setId(2);
+		DevloperModel model = new DevloperModel();
+		model.update(bean);
+		System.out.println("data added successfully!");
+	
+	}
+	
+	}
+
+

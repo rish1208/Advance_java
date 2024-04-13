@@ -1,0 +1,64 @@
+<%@page import="in.co.rays.bean.TvBean"%>
+<%@page import="in.co.rays.bean.UserBean"%>
+<%@page import="java.util.Iterator"%>
+<%@page import="java.util.List"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+<%
+		List list = (List) request.getAttribute("list");
+		Iterator it = list.iterator();
+	%>
+	<form action="TvListCtl" method="post">
+		<table>
+			<tr>
+				<td><input type="text" name="channelName"></td>
+			
+				<td><input type="submit" name="operation" value="search"></td>
+			</tr>
+		
+		</table>
+		<table border="1%">
+			<tr>
+				
+				<th>Id</th>
+				<th>ChannelName</th>
+				<th>ShowName</th>
+				<th>ShowDate</th>
+				<th>Watch</th>
+				
+			</tr>
+			<%
+				while (it.hasNext()) {
+					TvBean bean = (TvBean) it.next();
+			%>
+			<tr>
+				<td><input type="checkbox" name="ids" value="<%=bean.getId()%>"></td>
+				<td><%=bean.getId()%></td>
+				<td><%=bean.getChannelName()%></td>
+				<td><%=bean.getShowName()%></td>
+				<td><%=bean.getShowDate()%></td>
+				<td><%=bean.getWatch()%></td>
+				<td><a href="TvCtl?id=<%=bean.getId() %>">Edit</a></td>
+					</tr>
+			
+				
+				<%
+					}
+				%>
+		
+			
+		</table>
+
+				<td><input type="submit" name="operation" value="delete"></td>
+		
+
+	</form>
+</body>
+</html>

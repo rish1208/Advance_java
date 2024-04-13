@@ -1,0 +1,10 @@
+import java.util.Date;
+
+public class DevloperBean {
+	private int id;
+	private String devloperName;
+	private String project;
+	private String status;
+	private Date submitDate;
+	
+}

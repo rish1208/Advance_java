@@ -1,0 +1,32 @@
+package in.co.rays.ctl;
+
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import java.io.IOException;
+import java.util.List;
+import in.co.rays.model.TvModel;
+
+public class TvListCtl  extends HttpServlet{
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		
+	
+	int pageNo = 1;
+	int PageSize = 5;
+	TvModel model = new TvModel();
+	try {
+		List list = model.search(null, 1, 5);
+		req.setAttribute("list", list);
+		RequestDispatcher rd = req.getRequestDispatcher("TvListView.jsp");
+		rd.forward(req, resp);
+	} catch (Exception e) {
+		
+		e.printStackTrace();
+	}
+
+}
+	}

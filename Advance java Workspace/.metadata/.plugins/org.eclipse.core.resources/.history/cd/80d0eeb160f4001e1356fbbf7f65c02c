@@ -1,0 +1,56 @@
+package in.co.rays.model;
+
+import java.text.SimpleDateFormat;
+
+import in.co.rays.bean.UserBean;
+
+public class TestModel {
+	public static void main(String[] args) throws Exception {
+//		testadd();
+//		testupdate();
+		testdelete();
+	}
+
+	private static void testdelete()throws Exception {
+		UserBean bean = new UserBean();
+		bean.setId(3);
+		UserModel model = new UserModel();
+		model.delete(bean.getId());
+		
+	}
+
+	private static void testupdate()throws Exception {
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+		UserBean bean = new UserBean();
+		
+		bean.setFirstName("rish");
+		bean.setLastName("dwivedi");
+		bean.setLoginId("rish@gmail.com");
+		bean.setPassword("123");
+		bean.setDob(sdf.parse("01/01/2024"));
+		bean.setAddress("bhopal");
+		bean.setId(1);
+		UserModel model =new UserModel();
+		model.update(bean);
+		
+		
+	}
+
+
+	private static void testadd() throws Exception {
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+		UserBean bean = new UserBean();
+		bean.setId(1);
+		bean.setFirstName("rish");
+		bean.setLastName("dwivedi");
+		bean.setLoginId("rish@gmail.com");
+		bean.setPassword("123");
+		bean.setDob(sdf.parse("01/01/2024"));
+		bean.setAddress("indore");
+		UserModel model =new UserModel();
+		model.add(bean);
+		
+		
+	}
+
+}

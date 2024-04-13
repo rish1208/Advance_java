@@ -1,0 +1,92 @@
+package in.co.rays.model;
+
+import java.text.SimpleDateFormat;
+
+import in.co.rays.bean.UserBean;
+
+public class Test {
+	public static void main(String[] args) throws Exception{
+		
+//		testadd();
+//		testupdate();
+//		testdelete();
+//		testfindbypk();
+		testAuthetication();
+		
+		
+	}
+
+	private static void testAuthetication() throws Exception{
+		UserModel model = new UserModel();
+		UserBean bean = model.Authetication("rish@gmail.com", "123");
+		
+		if(bean !=null) {
+		System.out.println(bean.getId());
+		System.out.println(bean.getLastName());
+		System.out.println(bean.getLastName());
+		System.out.println(bean.getLoginId());
+		System.out.println(bean.getPassword());
+		System.out.println(bean.getDob());
+		System.out.println(bean.getAddress());
+		}else {
+			System.out.println("invalid login & password");
+		
+		}
+		
+	}
+
+	private static void testfindbypk()throws Exception {
+		UserModel model = new UserModel();
+		UserBean bean = model.findBypk(2);
+		
+		System.out.println(bean.getId());
+		System.out.println(bean.getLastName());
+		System.out.println(bean.getLastName());
+		System.out.println(bean.getLoginId());
+		System.out.println(bean.getPassword());
+		System.out.println(bean.getDob());
+		System.out.println(bean.getAddress());
+		
+		
+		
+	}
+
+	private static void testdelete() throws Exception{
+		UserBean bean = new UserBean();
+		bean.setId(1);
+		UserModel model = new UserModel();
+		model.delete(bean.getId());
+		System.out.println("data deleted");
+	}
+
+	private static void testupdate()throws Exception  {
+		UserBean bean = new UserBean();
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+		bean.setId(1);
+		bean.setFirstName("rish");
+		bean.setLastName("dwivedi");
+		bean.setLoginId("rish@gmail.com");
+		bean.setPassword("123");
+		bean.setDob(sdf.parse("01/01/2024"));
+		bean.setAddress("indore");
+		UserModel model = new UserModel();
+		model.update(bean);
+		System.out.println("data added");	
+	}
+
+	private static void testadd()throws Exception  {
+		UserBean bean = new UserBean();
+         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+		bean.setId(1);
+		bean.setFirstName("rish");
+		bean.setLastName("dwivedi");
+		bean.setLoginId("rish@gmail.com");
+		bean.setPassword("123");
+		bean.setDob(sdf.parse("01/01/2024"));
+		bean.setAddress("indore");
+		UserModel model = new UserModel();
+		model.add(bean);
+		System.out.println("data added");	
+	}
+
+}

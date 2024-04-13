@@ -1,0 +1,12 @@
+package in.co.rays.bean;
+
+import java.util.Date;
+
+public class VehicleBean {
+	
+	private int id;
+	private String name;
+	private String purchaseBy;
+	private Date purchaseDate;
+
+}

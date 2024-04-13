@@ -1,0 +1,58 @@
+package in.co.rays.model;
+
+import java.sql.Connection;
+import java.sql.Date;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+
+import in.co.rays.bean.VehicleBean;
+
+
+public class VehicleModel {
+	public  Integer nextPk() throws Exception{
+		Class.forName("com.sql.cj.jdbc.Driver");
+		Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/vehicle", "root", "root");
+		PreparedStatement pstmt = conn.prepareStatement("select max(id) from vehicle");
+		int pk = 0;
+		ResultSet rs = pstmt.executeQuery();
+		while(rs.next()) {
+			pk=rs.getInt(1);
+		}
+		return pk+1;	
+	}
+	
+	public  void add(VehicleBean bean) throws Exception{
+		
+		Class.forName("com.sql.cj.jdbc.Driver");
+		Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/vehicle", "root", "root");
+		PreparedStatement pstmt = conn.prepareStatement("insert into vehicle values(?,?,?,?,?,?");
+		int pk = nextPk();
+		pstmt.setInt(1, pk);
+		pstmt.setString(2, bean.getName());
+		pstmt.setString(3, bean.getPurchaseBy());
+		pstmt.setDate(4, new java.sql.Date(bean.getPurchaseDate().getTime()));
+		pstmt.setString(5, bean.getCompany());
+		pstmt.setString(6, bean.getManufacturedBy());
+		
+		int i = pstmt.executeUpdate();
+		System.out.println("data add"+ i);
+		
+	}
+public  void update(VehicleBean bean) throws Exception{
+		
+		Class.forName("com.sql.cj.jdbc.Driver");
+		Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/vehicle", "root", "root");
+		PreparedStatement pstmt = conn.prepareStatement("update vehicle set name=?, purchase_by=?, purchase_date=?, company=?, manufactured_by=? where id=? ");
+		int pk = nextPk();
+		
+		pstmt.setString(2, bean.getName());
+		pstmt.setString(1, bean.getPurchaseBy());
+		pstmt.setDate(3, new java.sql.Date(bean.getPurchaseDate().getTime()));
+		pstmt.setString(4, bean.getCompany());
+		pstmt.setString(5, bean.getManufacturedBy());
+		pstmt.setInt(6, bean.getId());
+		int i = pstmt.executeUpdate();
+		System.out.println("data add"+ i);
+
+}

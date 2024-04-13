@@ -1,0 +1,56 @@
+<%@page import="in.co.rays.bean.TvBean"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+	pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+	<%@include file="TvHeader.jsp"%>
+	<form action="TvCtl" method="post">
+		<%
+			TvBean bean = (TvBean) request.getAttribute("bean");
+		%>
+		<table>
+			<tr>
+				<td><input type="hidden" name="id"
+					value="<%=(bean != null) ? bean.getId() : ""%>"></td>
+			</tr>
+
+			<tr>
+				<th>ChannelName</th>
+				<td><input type="text" name="channelName"
+				 value="<%=(bean != null) ? bean.getChannelName() : ""%>"></td>
+				</td>
+			</tr>
+
+			<tr>
+				<th>ShowName</th>
+				<td><input type="text" name="showName" value="<%=(bean != null) ? bean.getShowName() : ""%>"></td>
+				</td>
+			</tr>
+
+
+			<tr>
+				<th>ShowDate</th>
+				<td><input type="Date" name="showDate"></td> value="<%=(bean != null) ? bean.getShowDate() : ""%>">
+				</td>
+			</tr>
+
+			<tr>
+				<th>Watch</th>
+				<td><input type="text" name="watch"></td> value="<%=(bean != null) ? bean.getWatch() : ""%>">
+				</td>
+			</tr>
+
+			<tr>
+				<th></th>
+				<td><input type="submit" name="operation" value="save"></td>
+			</tr>
+
+		</table>
+	</form>
+</body>
+</html>

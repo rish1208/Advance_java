@@ -1,0 +1,137 @@
+package in.co.rays.model;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
+
+import in.co.rays.bean.DevloperBean;
+
+
+public class DevloperModel {
+	
+		public  Integer nextPk() throws Exception{
+			int pk = 0;
+
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/pratise", "root", "root");
+			PreparedStatement pstmt = conn.prepareStatement("select max(id) from student");
+			ResultSet rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				pk = rs.getInt(1);
+			} 
+			return pk + 1;
+
+	}
+		public  void add(DevloperBean bean) throws Exception{
+			int pk = nextPk();
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			Connection conn= DriverManager.getConnection("jdbc:mysql://localhost:3306/pratise","root","root");
+			PreparedStatement pstmt = conn.prepareStatement("insert into student values(?,?,?,?,?)");
+			
+			pstmt.setInt(1, pk);
+			pstmt.setString(2, bean.getDevloperName());
+			pstmt.setString(3, bean.getDevloperName());
+			pstmt.setString(4, bean.getStatus());
+			pstmt.setDate(5, new java.sql.Date(bean.getSubmitDate().getTime()));
+			
+			int i = pstmt.executeUpdate();
+			System.out.println("data added successfully"+ i);
+		}	
+
+
+	public void update(DevloperBean bean) throws Exception{
+System.out.println("in update method");
+		Class.forName("com.mysql.cj.jdbc.Driver");
+		Connection conn= DriverManager.getConnection("jdbc:mysql://localhost:3306/pratise","root","root");
+		PreparedStatement pstmt = conn.prepareStatement("update student set devloper_name =?, project=?, status=?, submit_date=? where id=?");
+		
+		
+		pstmt.setString(1, bean.getDevloperName());
+		pstmt.setString(2, bean.getProject());
+		
+		pstmt.setString(3, bean.getStatus());
+		pstmt.setDate(4, new java.sql.Date(bean.getSubmitDate().getTime()));
+		pstmt.setInt(5, bean.getId());
+		int i = pstmt.executeUpdate();
+		System.out.println("data update successfully"+ i);
+		
+	}
+	public  void delete(int id) throws Exception{
+
+		Class.forName("com.mysql.cj.jdbc.Driver");
+		Connection conn= DriverManager.getConnection("jdbc:mysql://localhost:3306/pratise","root","root");
+		PreparedStatement pstmt = conn.prepareStatement("delete from student where id=?");
+		pstmt.setInt(1, id);
+		int i = pstmt.executeUpdate();
+		System.out.println("data delete successfully"+ i);
+		
+	}
+	public  DevloperBean findByPk(int id) throws Exception{
+		
+		Class.forName("com.mysql.cj.jdbc.Driver");
+		Connection conn= DriverManager.getConnection("jdbc:mysql://localhost:3306/pratise","root","root");
+		PreparedStatement pstmt = conn.prepareStatement("select * from student where id =?");
+		pstmt.setInt(1, id);
+		ResultSet rs = pstmt.executeQuery();
+		DevloperBean bean = new DevloperBean();
+		while(rs.next()) {
+			bean = new DevloperBean();
+			bean.setId(rs.getInt(1));
+			bean.setDevloperName(rs.getString(2));
+			bean.setProject(rs.getString(3));
+			bean.setStatus(rs.getString(4));
+			bean.setSubmitDate(rs.getDate(5));
+			
+			
+		}
+		return bean;
+	}
+	public List search(DevloperBean bean, int pageNo, int pageSize) throws Exception {
+
+			int pk = nextPk();
+
+				Class.forName("com.mysql.cj.jdbc.Driver");
+				Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/pratise", "root", "root");
+				StringBuffer sql = new StringBuffer("select * from student where 1=1");
+				if (bean != null) {
+					if (bean.getDevloperName() != null && bean.getDevloperName().length() > 0) {
+						sql.append(" and devloper_name like '" + bean.getDevloperName() + "%'");
+					}
+					if (bean.getSubmitDate() != null && bean.getSubmitDate().getTime() > 0) {
+						sql.append(" and dob like '" + new java.sql.Date(bean.getSubmitDate().getTime()) + "%'");
+					}
+				}
+				if (pageSize > 0) {
+
+					pageNo = (pageNo - 1) * pageSize;
+
+					sql.append(" limit " + pageNo + ", " + pageSize);
+				}
+
+				System.out.println("sql => " + sql);
+				PreparedStatement ps = conn.prepareStatement(sql.toString());
+				ResultSet rs = ps.executeQuery();
+
+				List list = new ArrayList();
+				while (rs.next()) {
+					bean = new DevloperBean();
+					bean.setId(rs.getInt(1));
+					bean.setDevloperName(rs.getString(2));
+					bean.setProject(rs.getString(3));
+					bean.setStatus(rs.getString(4));
+					bean.setSubmitDate(rs.getDate(5));
+					list.add(bean);
+				
+				}
+				return list;
+	}
+
+	}
+
+	
+
+
